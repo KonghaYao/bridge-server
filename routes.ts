@@ -1,7 +1,3 @@
-import { Router } from "./deps.ts";
-import * as V2 from "./routes/v2.ts";
-import { SuperRouter } from "./utils/Modules.ts";
-
-const router = new Router();
-router.use("/api", new SuperRouter().applyToRouter(V2 as any).routes());
-export { router };
+import * as v2 from "./routes/v2.ts";
+import { APIConfig } from "./utils/Modules.ts";
+export default { v2 } as any as Record<string, Record<string, APIConfig>>;
