@@ -1,12 +1,11 @@
-import { z } from "../deps.ts";
-import { APIConfig } from "../utils/Modules.ts";
-export const hello = new APIConfig(
+import { z, APIConfig } from "../../mod.ts";
+export const user = new APIConfig(
     z.object({ data: z.string() }),
     z.object({
         input: z.string(),
     })
 )
-    // .input("json")
+    .input("json")
     .api((input) => {
         return { input: input.data };
     });

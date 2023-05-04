@@ -1,4 +1,4 @@
-# Edge-API
+# Bridge
 
 This is an API framework that allows for the creation of a backend API and automatically generates frontend TS code to facilitate application development.
 
@@ -11,7 +11,7 @@ This framework is built on the Koa framework running within a Deno runtime, and 
 
 ```ts
 // we use zod to validate many data!
-import { z, APIConfig } from "https://esm.sh/edge-api";
+import { z, APIConfig } from "https://esm.sh/bridge";
 
 // You must keep the api safe using zod
 export const hello = new APIConfig(
