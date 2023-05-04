@@ -8,9 +8,11 @@ import { z } from "../deps.ts";
 export const buildAPI = async (
     absPath: string,
     targetPath: string,
-    config: { root: string }
+    config: { root: string; qs?: string }
 ) => {
-    let tsFile = `import qs from 'qs';\nconst root = '${config.root}'\n`;
+    let tsFile = `import qs from '${config.qs ?? "qs"}';\nconst root = '${
+        config.root
+    }'\n`;
     const modules: Record<string, Record<string, APIConfig>> =
         /** @ts-ignore ignore: 忽略绝对路径获取的代码*/
         await import(absPath);
@@ -41,7 +43,10 @@ function buildFetch(name: string, prefix: string, api: APIConfig) {
         : "?:undefined";
     const outputType = schemaToString(api.outputSchema);
 
-    return `function ${name}(input:${inputType},headers${headerType}):Promise<${outputType}>{
+    return `function ${name}(input:${inputType},_headers${headerType}):Promise<${outputType}>{
+    const headers = Object.assign(JSON.parse('${JSON.stringify(
+        api._default_header
+    )}'),_headers??{})
     const body = ${api.method === "get" ? "null" : "JSON.stringify(input)"}
     const query = ${api.method === "get" ? "'?'+qs.stringify(input)" : "''"}
     return fetch(root+"/api/${prefix}/${name}"+query,{

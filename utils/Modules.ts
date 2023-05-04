@@ -23,7 +23,8 @@ export class APIConfig<
     method: "get" | "post" = "get";
     inputTransform: "json" | "urlencoded" = "urlencoded";
     outputTransform: keyof typeof Transformers = "json";
-    _header?: z.ZodObject;
+    _header?: z.ZodObject<any>;
+    _default_header: Record<string, string> = {};
 
     /** 校验输入数据 */
     input(receiveType: this["inputTransform"]) {
@@ -31,21 +32,23 @@ export class APIConfig<
         this.inputTransform = receiveType;
         switch (receiveType) {
             case "json":
-                this.header(
-                    z.object({
-                        "content-type": z.literal("application/json"),
-                    })
-                );
+                this.defaultHeader({
+                    "content-type": "application/json",
+                });
+                break;
         }
         return this;
     }
     /** 校验头部信息 */
-    header(schema: z.ZodObject) {
+    header(schema: z.ZodObject<any>) {
         if (!this._header) this._header = z.object({});
         this._header = this._header.merge(schema);
         return this;
     }
-    /** 校验输出数据 */
+    defaultHeader(header: this["_default_header"]) {
+        Object.assign(this._default_header, header);
+    }
+    /** 数据格式化方案 */
     output(transform: this["outputTransform"]) {
         this.outputTransform = transform;
         return this;

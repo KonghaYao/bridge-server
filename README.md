@@ -9,6 +9,8 @@ This framework is built on the Koa framework running within a Deno runtime, and 
 
 ## Example
 
+1. routes/v1.ts
+
 ```ts
 // we use zod to validate many data!
 import { z, APIConfig } from "https://esm.sh/bridge";
@@ -26,4 +28,28 @@ export const hello = new APIConfig(
     .api((input) => {
         return { input: input.data };
     });
+```
+
+2. routes.ts
+
+```ts
+import * as v2 from "./routes/v2.ts";
+import * as user from "./routes/user.ts";
+import { APIConfig } from "../mod.ts";
+
+// pick your routes in one ts file
+export default { user, v2 } as unknown as Record<
+    string,
+    Record<string, APIConfig>
+>;
+```
+
+3. build.ts
+
+```ts
+import { buildAPI } from "../build/index.ts";
+// build font-end file to any way
+buildAPI(import.meta.resolve("./routes.ts"), "./dist/index.ts", {
+    root: "http://localhost:8000",
+});
 ```
