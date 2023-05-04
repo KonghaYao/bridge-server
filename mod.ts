@@ -1,6 +1,7 @@
 import { Router, koaBody, cors, Koa, logger } from "./deps.ts";
 import { APIConfig, SuperRouter } from "./utils/Modules.ts";
-
+export * from "./utils/Modules.ts";
+export * from "./deps.ts";
 /** 直接初始化服务器 */
 export const ServerInit = (
     modules: Record<string, Record<string, APIConfig>>

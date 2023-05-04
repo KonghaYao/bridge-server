@@ -3,28 +3,30 @@ const root = 'http://localhost:8000'
 
 function user(input:{
     data: string;
+},headers:{
+    "content-type": "application/json";
 }):Promise<{
     input: string;
 }>{
     const body = JSON.stringify(input)
     const query = ''
-    return fetch(root+"/api/user"+query,{
+    return fetch(root+"/api/user/user"+query,{
         method:"post",
-        headers:JSON.parse('{}'),
+        headers,
         body
     }).then(res=>res.json())
 }
 
 function hello(input:{
     data: string;
-}):Promise<{
+},headers?:undefined):Promise<{
     input: string;
 }>{
     const body = null
     const query = '?'+qs.stringify(input)
-    return fetch(root+"/api/hello"+query,{
+    return fetch(root+"/api/v2/hello"+query,{
         method:"get",
-        headers:JSON.parse('{}'),
+        headers,
         body
     }).then(res=>res.json())
 }

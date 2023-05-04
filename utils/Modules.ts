@@ -3,7 +3,7 @@ import { z, Router } from "../deps.ts";
 export type ModuleHandle<T = null, D = string> = (
     input: T,
     headers: Record<string, string>,
-    ctx: any
+    ctx: Koa.Context
 ) => Promise<D> | D;
 
 export const Transformers = {
@@ -23,13 +23,29 @@ export class APIConfig<
     method: "get" | "post" = "get";
     inputTransform: "json" | "urlencoded" = "urlencoded";
     outputTransform: keyof typeof Transformers = "json";
+    _header?: z.ZodObject;
 
+    /** 校验输入数据 */
     input(receiveType: this["inputTransform"]) {
         if (receiveType !== "urlencoded") this.method = "post";
         this.inputTransform = receiveType;
+        switch (receiveType) {
+            case "json":
+                this.header(
+                    z.object({
+                        "content-type": z.literal("application/json"),
+                    })
+                );
+        }
         return this;
     }
-
+    /** 校验头部信息 */
+    header(schema: z.ZodObject) {
+        if (!this._header) this._header = z.object({});
+        this._header = this._header.merge(schema);
+        return this;
+    }
+    /** 校验输出数据 */
     output(transform: this["outputTransform"]) {
         this.outputTransform = transform;
         return this;
