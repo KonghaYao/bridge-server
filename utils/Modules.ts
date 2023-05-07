@@ -64,7 +64,9 @@ export class APIConfig<
         }
     }
     handle!: Koa.Middleware;
-    api(func: ModuleHandle<z.infer<InputSchema>, z.infer<OutputSchema>>) {
+    originHandle!: ModuleHandle<z.infer<InputSchema>, z.infer<OutputSchema>>;
+    api(func: this["originHandle"]) {
+        this.originHandle = func;
         this.handle = async (ctx) => {
             const input = this.checkInput(ctx);
             const output = await func.call(
