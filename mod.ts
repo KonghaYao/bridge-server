@@ -1,8 +1,14 @@
-import type { KoaBodyMiddlewareOptions } from "https://esm.sh/koa-body@6.0.1";
-import { Router, koaBody, cors, Koa, logger } from "./deps.ts";
-import { APIConfig, SuperRouter } from "./utils/Modules.ts";
-export * from "./utils/Modules.ts";
-export * from "./deps.ts";
+import type { KoaBodyMiddlewareOptions } from "koa-body";
+import Koa from "koa";
+import Router from "@koa/router";
+import koaBody from "koa-body";
+import cors from "@koa/cors";
+import logger from "koa-logger";
+import { APIConfig, SuperRouter } from "./src/Modules.ts";
+export * from "./src/Modules.ts";
+export * from "zod";
+export { Koa, Router };
+
 /** 直接初始化服务器 */
 export const ServerInit = (
     modules: Record<string, Record<string, APIConfig>>,

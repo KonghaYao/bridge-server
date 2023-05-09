@@ -1,8 +1,8 @@
 // 读取 routes 文件夹下的文件，构建路由文件至 /dist/routers.ts
 
 import { zodToTs, printNode } from "https://esm.sh/zod-to-ts@1.1.4";
-import { APIConfig } from "../utils/Modules.ts";
-import { z } from "../deps.ts";
+import { APIConfig } from "../src/Modules.ts";
+import { z } from "zod";
 
 /** 通过后端 API 创建前端 Fetch */
 export const buildAPI = async (

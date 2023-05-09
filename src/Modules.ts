@@ -1,5 +1,6 @@
-import { Koa } from "../deps.ts";
-import { z, Router } from "../deps.ts";
+import Koa from "koa";
+import Router from "@koa/router";
+import { z } from "zod";
 export type ModuleHandle<T = null, D = string> = (
     input: T,
     headers: Record<string, string>,

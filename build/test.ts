@@ -1,6 +1,6 @@
 // 读取 routes 文件夹下的文件，构建路由文件至 /dist/routers.ts
 import { generateMock } from "https://esm.sh/@anatine/zod-mock";
-import { APIConfig } from "../utils/Modules.ts";
+import { APIConfig } from "../src/Modules.ts";
 
 /** 通过后端 API 创建前端 Fetch */
 export const buildTest = async (
