@@ -85,6 +85,16 @@ buildTest(
     "tasks": {
         "dev": "deno run --watch --allow-all --unstable main.ts",
         "dev:build": "deno run --watch --allow-all --unstable build.ts"
+    },
+    "imports": {
+        // qs is used to handle e2e querystring
+        "qs": "https://esm.sh/qs@6.11.1",
+        "koa": "https://esm.sh/koa@2.14.1",
+        "@koa/router": "https://esm.sh/@koa/router@12.0.0",
+        "@koa/cors": "https://esm.sh/@koa/cors@4.0.0",
+        "koa-body": "https://esm.sh/koa-body@6.0.1",
+        "koa-logger": "https://esm.sh/koa-logger@3.2.1",
+        "zod": "https://esm.sh/zod@3.21.4"
     }
 }
 ```

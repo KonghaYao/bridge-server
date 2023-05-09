@@ -77,6 +77,7 @@ export class APIConfig<
                 ctx.request.headers,
                 ctx
             );
+            // TODO 添加一个返回值检测，只有 develop 模式下才使用
             ctx.body = Transformers[this.outputTransform](output);
         };
         return this;
